@@ -1,0 +1,3 @@
+FROM postgres
+ENV POSTGRES_DB=vladb
+ENV POSTGRES_PASSWORD=Shivani@11
