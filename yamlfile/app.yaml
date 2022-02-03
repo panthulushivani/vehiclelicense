@@ -2,35 +2,35 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "vehichleapp"
+  name: "vehiclelicenseapp"
   namespace: "default"
   labels:
-    app: "vehichleapp"
+    app: "vehiclelicenseapp"
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: "vehichleapp"
+      app: "vehiclelicenseapp"
   template:
     metadata:
       labels:
-        app: "vehichleapp"
+        app: "vehiclelicenseapp"
     spec:
       containers:
-      - name: "vehicledb-sha256-1"
-        image: "gcr.io/cap1-339903/github.com/panthulushivani/vehicledb@sha256:a58286d5f0831c432c4027183fb4d59e51b3f54989181c8274cc49050ce1284b"
+      - name: "shiv-sha256-1"
+        image: "gcr.io/cap1-339903/github.com/panthulushivani/shiv@sha256:c7771d7da52ba8e5b4362f72294e6b4211c2625ea5e84f31f3c03cc73a4e6d1b"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "vehichleapp-hpa-s48u"
+  name: "vehiclelicenseapp-hpa-lxmw"
   namespace: "default"
   labels:
-    app: "vehichleapp"
+    app: "vehiclelicenseapp"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "vehichleapp"
+    name: "vehiclelicenseapp"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
@@ -39,3 +39,4 @@ spec:
     resource:
       name: "cpu"
       targetAverageUtilization: 80
+
