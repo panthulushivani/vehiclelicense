@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "vehiclelicenseapp"
+  namespace: "default"
+  labels:
+    app: "vehiclelicenseapp"
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: "vehiclelicenseapp"
+  template:
+    metadata:
+      labels:
+        app: "vehiclelicenseapp"
+    spec:
+      containers:
+      - name: "nginx-1"
+        image: "nginx:latest"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "vehiclelicenseapp-hpa-bv85"
+  namespace: "default"
+  labels:
+    app: "vehiclelicenseapp"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "vehiclelicenseapp"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
