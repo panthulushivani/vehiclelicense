@@ -2,35 +2,35 @@
 apiVersion: "apps/v1"
 kind: "Deployment"
 metadata:
-  name: "vehiclelicenseapp"
+  name: "vehichleapp"
   namespace: "default"
   labels:
-    app: "vehiclelicenseapp"
+    app: "vehichleapp"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: "vehiclelicenseapp"
+      app: "vehichleapp"
   template:
     metadata:
       labels:
-        app: "vehiclelicenseapp"
+        app: "vehichleapp"
     spec:
       containers:
-      - name: "nginx-1"
-        image: "nginx:latest"
+      - name: "vehicledb-sha256-1"
+        image: "gcr.io/cap1-339903/github.com/panthulushivani/vehicledb@sha256:a58286d5f0831c432c4027183fb4d59e51b3f54989181c8274cc49050ce1284b"
 ---
 apiVersion: "autoscaling/v2beta1"
 kind: "HorizontalPodAutoscaler"
 metadata:
-  name: "vehiclelicenseapp-hpa-bv85"
+  name: "vehichleapp-hpa-s48u"
   namespace: "default"
   labels:
-    app: "vehiclelicenseapp"
+    app: "vehichleapp"
 spec:
   scaleTargetRef:
     kind: "Deployment"
-    name: "vehiclelicenseapp"
+    name: "vehichleapp"
     apiVersion: "apps/v1"
   minReplicas: 1
   maxReplicas: 5
