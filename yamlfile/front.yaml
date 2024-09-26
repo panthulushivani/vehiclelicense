@@ -1,0 +1,41 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "licensevehicleapp"
+  namespace: "default"
+  labels:
+    app: "licensevehicleapp"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "licensevehicleapp"
+  template:
+    metadata:
+      labels:
+        app: "licensevehicleapp"
+    spec:
+      containers:
+      - name: "vehiclelicense-sha256-1"
+        image: "gcr.io/cap1-339903/github.com/panthulushivani/vehiclelicense@sha256:6e03aba9ed33cee1189352f0badfdbfe70609382257725f5c6757491c9208150"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "licensevehicleapp-hpa-nmvs"
+  namespace: "default"
+  labels:
+    app: "licensevehicleapp"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "licensevehicleapp"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
